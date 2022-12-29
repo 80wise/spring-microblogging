@@ -5,6 +5,7 @@ import com.godsonpeya.microblog.entity.User
 import com.godsonpeya.microblog.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 
 @RestController
@@ -17,7 +18,7 @@ class UserController @Autowired constructor(private val userService: UserService
     fun getUser(@PathVariable id: Long): User = userService.getOne(id)
 
     @GetMapping("/login")
-    fun login(@RequestBody user: UserConnexion): User = userService.login(user)
+    fun login(@Valid @RequestBody user: UserConnexion): User = userService.login(user)
 
     @PostMapping("/users")
     fun createUser(@RequestBody user: User): User = userService.saveUser(user)
