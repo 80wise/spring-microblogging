@@ -2,6 +2,7 @@ package com.godsonpeya.microblog.service
 
 import com.godsonpeya.microblog.dto.UserConnexion
 import com.godsonpeya.microblog.entity.User
+import com.godsonpeya.microblog.exception.UserNotFoundException
 import com.godsonpeya.microblog.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -39,10 +40,10 @@ class UserService @Autowired constructor(private var userRepository: UserReposit
 
     fun login(user: UserConnexion): User {
         val userFound =
-            userRepository.findByUsername(user.username).orElseThrow { IllegalArgumentException("User not found") }
+            userRepository.findByUsername(user.username).orElseThrow { UserNotFoundException("User not found") }
         if (userFound.password == user.password) {
             return userFound
         }
-        throw IllegalArgumentException("wrong password")
+        throw UserNotFoundException("wrong password")
     }
 }
