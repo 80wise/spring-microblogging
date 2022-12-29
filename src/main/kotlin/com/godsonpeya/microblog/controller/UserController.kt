@@ -1,5 +1,6 @@
 package com.godsonpeya.microblog.controller
 
+import com.godsonpeya.microblog.dto.UserConnexion
 import com.godsonpeya.microblog.entity.User
 import com.godsonpeya.microblog.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -15,11 +16,14 @@ class UserController @Autowired constructor(private val userService: UserService
     @GetMapping("/users/{id}")
     fun getUser(@PathVariable id: Long): User = userService.getOne(id)
 
+    @GetMapping("/login")
+    fun login(@RequestBody user: UserConnexion): User = userService.login(user)
+
     @PostMapping("/users")
     fun createUser(@RequestBody user: User): User = userService.saveUser(user)
 
     @PutMapping("/users/{id}")
-    fun updateUser(@PathVariable id: Long,@RequestBody user: User): User = userService.updateUser(id, user)
+    fun updateUser(@PathVariable id: Long, @RequestBody user: User): User = userService.updateUser(id, user)
 
     @DeleteMapping("/users/{id}")
     fun deleteUser(@PathVariable id: Long): String = userService.deleteUser(id)

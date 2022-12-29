@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-
 class PostController @Autowired constructor(private val postService: PostService) {
     @GetMapping("/posts")
     fun getPostList(): List<Post> = postService.getPosts()
+
+    @GetMapping("/posts/by-user/{userId}")
+    fun getPostsByUserId(@PathVariable userId: Long): List<Post> = postService.getPostByUserId(userId)
 
     @GetMapping("/posts/{id}")
     fun getUser(@PathVariable id: Long): Post = postService.getOne(id)
